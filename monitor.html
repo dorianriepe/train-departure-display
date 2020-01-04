@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DB-Abfahrten</title>
+    <link rel="stylesheet" type="text/css" href="monitor.css">
+    <meta http-equiv="refresh" content="30" > 
+</head>
+
+<body>
+
+    <div class="wrapper">        
+
+        <div class="headline"><h1>Abfahrt <span class="otherlang">Departure/Départ</span></div>
+                
+        <div class="stationclock">
+                    
+            <script type="text/javascript" src="station-clock.js"></script>
+            <script type="text/javascript">
+                
+                var clock = new StationClock("clock");
+                clock.body = StationClock.SmallWhiteBody;
+                clock.dial = StationClock.SwissStrokeDial;
+                clock.hourHand = StationClock.SwissHourHand;
+                clock.minuteHand = StationClock.SwissMinuteHand;
+                clock.secondHand = StationClock.HoleShapedSecondHand;
+                clock.boss = StationClock.NoBoss;
+                clock.minuteHandBehavoir = StationClock.BouncingMinuteHand;
+                clock.secondHandBehavoir = StationClock.OverhastySecondHand;
+                
+                animate();
+                
+                function animate() {
+                    clock.draw();
+                    window.setTimeout("animate()", 50);
+                }
+                
+            </script>
+                
+            <canvas id="clock" width="160" height="160">Fehlermeldung</canvas>
+
+        </div>
+
+        <div class="dbimg"><img src="db.png" alt="" style="height:40px;"></div>
+
+        <div class="timetable">
+
+            <table style="width:100%" id="log">
+                
+                <tr>
+                    <th>Zeit</span></th>
+                    <th><span class="otherlang">Time/Temps</th>
+                    <th></th>
+                    <th></th>
+                    <th>Über <span class="otherlang">Via</span></th>
+                    <th>Ziel <span class="otherlang">Destination</span></th>
+                    <th>Gleis</span></th>
+                    <th>  <span class="otherlang">Platform/Voie</th>
+                </tr>
+
+
+                <script>
+                        const Http = new XMLHttpRequest();
+                        const url='http://localhost:8081';
+                        Http.open("GET", url);
+                        Http.send();
+                        
+                        
+                        
+                        Http.onreadystatechange=function(){
+                            if(this.readyState==4 && this.status==200){
+                        
+                                str = Http.responseText
+                               
+                              //  document.write(str)
+                                document.getElementById('log').innerHTML = document.getElementById('log').innerHTML+str;
+                            }
+                        }
+                        
+                        
+                        </script>
+
+
+                <!--
+                <tr>
+                    <td>14:02</td>
+                    <td>+1</td>
+                    <td class="high">S1</td>
+                    <td>Universität, Schwabstraße</td>
+                    <td>Plochingen</td>
+                    <td>1</td>
+                    <td class="high">Signalstörung</td>
+                </tr>
+
+                <tr>
+                    <td>14:27</td>
+                    <td></td>
+                    <td class="high">S1</td>
+                    <td>Böblingen, Hulb</td>
+                    <td>Herrenberg</td>
+                    <td>2</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>14:32</td>
+                    <td>+8</td>
+                    <td class="high">S1</td>
+                    <td>Universität, Schwabstraße</td>
+                    <td>Kirchheim (Teck)</td>
+                    <td>1</td>
+                    <td class="high">Verzögerung beim Einstieg</td>
+                </tr>
+
+                <tr>
+                    <td>14:57</td>
+                    <td></td>
+                    <td class="high">S1</td>
+                    <td>Böblingen, Hulb</td>
+                    <td>Herrenberg</td>
+                    <td>2</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>15:02</td>
+                    <td></td>
+                    <td class="high">S1</td>
+                    <td>Universität, Schwabstraße</td>
+                    <td>Kirchheim (Teck)</td>
+                    <td>1</td>
+                    <td ></td>
+                </tr>
+
+                <tr>
+                        <td>15:02</td>
+                        <td></td>
+                        <td class="high">S1</td>
+                        <td>Universität, Schwabstraße</td>
+                        <td>Kirchheim (Teck)</td>
+                        <td>1</td>
+                        <td ></td>
+                    </tr>
+
+                    <tr>
+                            <td>15:02</td>
+                            <td></td>
+                            <td class="high">S1</td>
+                            <td>Universität, Schwabstraße</td>
+                            <td>Kirchheim (Teck)</td>
+                            <td>1</td>
+                            <td ></td>
+                        </tr>
+                        -->        
+            </table> 
+
+       </div>
+    
+</body>
+
+</html>
